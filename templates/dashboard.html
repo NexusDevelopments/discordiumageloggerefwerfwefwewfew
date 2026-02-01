@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webhook & Image Monitor Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 28px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            color: #555;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        input[type="url"],
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="url"]:focus,
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .result-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .result-section.show {
+            display: block;
+        }
+        
+        .result-item {
+            margin-bottom: 15px;
+        }
+        
+        .result-label {
+            color: #666;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+        
+        .result-value {
+            background: white;
+            padding: 10px;
+            border-left: 4px solid #667eea;
+            border-radius: 4px;
+            word-break: break-all;
+            font-size: 14px;
+            color: #333;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .copy-btn {
+            width: auto;
+            padding: 6px 12px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        
+        .copy-btn:hover {
+            background: #764ba2;
+        }
+        
+        .error {
+            background: #fee;
+            color: #c33;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid #c33;
+        }
+        
+        .success {
+            background: #efe;
+            color: #3c3;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid #3c3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔗 Webhook Monitor</h1>
+        
+        <form id="webhookForm">
+            <div class="form-group">
+                <label for="webhookUrl">Discord Webhook URL</label>
+                <input 
+                    type="url" 
+                    id="webhookUrl" 
+                    placeholder="https://discord.com/api/webhooks/..." 
+                    required
+                >
+            </div>
+            
+            <div class="form-group">
+                <label for="imageFile">Image File</label>
+                <input 
+                    type="file" 
+                    id="imageFile" 
+                    accept=".png,.jpg,.jpeg" 
+                    required
+                >
+                <small id="fileName" style="color: #999; margin-top: 8px; display: block;"></small>
+            </div>
+            
+            <button type="submit">Generate Monitor Links</button>
+        </form>
+        
+        <div id="resultSection" class="result-section">
+            <div class="result-item">
+                <div class="result-label">📸 Image Link</div>
+                <div class="result-value" id="imageLink"></div>
+                <button class="copy-btn" onclick="copyToClipboard('imageLink')">Copy</button>
+            </div>
+            
+            <div class="result-item">
+                <div class="result-label">📊 Monitor Link</div>
+                <div class="result-value" id="monitorLink"></div>
+                <button class="copy-btn" onclick="copyToClipboard('monitorLink')">Copy</button>
+            </div>
+        </div>
+        
+        <div id="message"></div>
+    </div>
+    
+    <script>
+        const form = document.getElementById('webhookForm');
+        const resultSection = document.getElementById('resultSection');
+        const messageDiv = document.getElementById('message');
+        const imageFileInput = document.getElementById('imageFile');
+        const fileNameDisplay = document.getElementById('fileName');
+        
+        imageFileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                fileNameDisplay.textContent = '✓ ' + e.target.files[0].name;
+                fileNameDisplay.style.color = '#3c3';
+            } else {
+                fileNameDisplay.textContent = '';
+            }
+        });
+        
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const webhookUrl = document.getElementById('webhookUrl').value;
+            const imageFile = document.getElementById('imageFile').files[0];
+            
+            if (!imageFile) {
+                messageDiv.innerHTML = '<div class="error">✗ Please select an image</div>';
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = async (event) => {
+                try {
+                    const base64Image = event.target.result;
+                    
+                    const response = await fetch('/api/webhook', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            webhook_url: webhookUrl,
+                            image_data: base64Image
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (response.ok) {
+                        const baseUrl = window.location.origin;
+                        const imageLink = baseUrl + data.image_link;
+                        const monitorLink = baseUrl + data.monitor_link;
+                        
+                        document.getElementById('imageLink').textContent = imageLink;
+                        document.getElementById('monitorLink').textContent = monitorLink;
+                        
+                        resultSection.classList.add('show');
+                        messageDiv.innerHTML = '<div class="success">✓ Links generated successfully!</div>';
+                    } else {
+                        messageDiv.innerHTML = `<div class="error">✗ Error: ${data.error}</div>`;
+                    }
+                } catch (error) {
+                    messageDiv.innerHTML = `<div class="error">✗ Error: ${error.message}</div>`;
+                }
+            };
+            reader.readAsDataURL(imageFile);
+        });
+        
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            const text = element.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = event.target;
+                btn.textContent = 'Copied!';
+                setTimeout(() => {
+                    btn.textContent = 'Copy';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

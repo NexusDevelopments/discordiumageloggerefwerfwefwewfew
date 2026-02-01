@@ -1,0 +1,8 @@
+*.pyc
+__pycache__/
+.git
+.gitignore
+README.md
+*.md
+.DS_Store
+main.py
