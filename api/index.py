@@ -8,12 +8,14 @@ import base64
 from io import BytesIO
 import requests as req
 
-app = Flask(__name__, template_folder='templates')
+# Get the template folder path
+template_dir = os.path.join(os.path.dirname(__file__), '..', 'templates')
+app = Flask(__name__, template_folder=template_dir)
 CORS(app)
 
-# Data storage
-WEBHOOKS_FILE = "webhooks.json"
-MONITORS_FILE = "monitors.json"
+# Data storage - use /tmp for Vercel serverless
+WEBHOOKS_FILE = "/tmp/webhooks.json"
+MONITORS_FILE = "/tmp/monitors.json"
 
 def load_data(filename):
     if os.path.exists(filename):
