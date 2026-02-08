@@ -1,27 +1,34 @@
 {
-  "buildCommand": "vite build",
-  "outputDirectory": "dist",
-  "installCommand": "npm install",
-  "rewrites": [
+  "builds": [
     {
-      "source": "/api/webhook",
-      "destination": "/api/index.py"
+      "src": "api/index.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/webhook",
+      "dest": "/api/index.py"
     },
     {
-      "source": "/image.php",
-      "destination": "/api/index.py"
+      "src": "/image.php",
+      "dest": "/api/index.py"
     },
     {
-      "source": "/monitor.php",
-      "destination": "/api/index.py"
+      "src": "/monitor.php",
+      "dest": "/api/index.py"
     },
     {
-      "source": "/api/(.*)",
-      "destination": "/api/index.py"
+      "src": "/api/(.*)",
+      "dest": "/api/index.py"
     },
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "src": "/image-logger",
+      "dest": "/image-logger.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 }
