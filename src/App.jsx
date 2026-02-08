@@ -10,7 +10,7 @@ function App() {
       <div className="stars3"></div>
       
       <header className="header">
-        <h1 className="title glow-red">DISCORD TOOLS</h1>
+        <h1 className="title glow-cyan">ZESTY TOOLS</h1>
         <p className="subtitle">Premium Image Logger Generator</p>
       </header>
 
@@ -19,7 +19,7 @@ function App() {
       </main>
 
       <footer className="footer">
-        <p>Made with <span className="glow-red">❤</span> for Discord</p>
+        <p>Made with <span className="glow-cyan">❤</span> for Discord</p>
       </footer>
     </div>
   )

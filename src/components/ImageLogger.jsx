@@ -76,7 +76,7 @@ const ImageLogger = () => {
     <div className="image-logger-container">
       <div className="tool-card border-glow-red">
         <div className="card-header">
-          <h2 className="card-title glow-red">🔗 Image Logger Generator</h2>
+          <h2 className="card-title glow-cyan">🔗 Image Logger Generator</h2>
           <p className="card-description">Create stealth image logger links</p>
         </div>
 

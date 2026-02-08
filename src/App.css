@@ -15,17 +15,17 @@
 }
 
 .stars {
-  background: transparent url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="2" height="2"><circle cx="1" cy="1" r="1" fill="%23ff0000" opacity="0.3"/></svg>') repeat;
+  background: transparent url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="2" height="2"><circle cx="1" cy="1" r="1" fill="%2300ffff" opacity="0.3"/></svg>') repeat;
   animation: animateStars 50s linear infinite;
 }
 
 .stars2 {
-  background: transparent url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="3" height="3"><circle cx="1.5" cy="1.5" r="1" fill="%23ff0000" opacity="0.2"/></svg>') repeat;
+  background: transparent url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="3" height="3"><circle cx="1.5" cy="1.5" r="1" fill="%2300ffff" opacity="0.2"/></svg>') repeat;
   animation: animateStars 100s linear infinite;
 }
 
 .stars3 {
-  background: transparent url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="4" height="4"><circle cx="2" cy="2" r="1" fill="%23ff0000" opacity="0.1"/></svg>') repeat;
+  background: transparent url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="4" height="4"><circle cx="2" cy="2" r="1" fill="%2300ffff" opacity="0.1"/></svg>') repeat;
   animation: animateStars 150s linear infinite;
 }
 
@@ -51,8 +51,8 @@
 }
 
 @keyframes pulseGlow {
-  0%, 100% { text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000; }
-  50% { text-shadow: 0 0 20px #ff0000, 0 0 30px #ff0000, 0 0 40px #ff0000, 0 0 50px #ff0000; }
+  0%, 100% { text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff; }
+  50% { text-shadow: 0 0 20px #00ffff, 0 0 30px #00ffff, 0 0 40px #00ffff, 0 0 50px #00ffff; }
 }
 
 .subtitle {

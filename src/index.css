@@ -16,18 +16,18 @@ body {
   min-height: 100vh;
 }
 
-/* Red glow effects */
-.glow-red {
-  text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000;
+/* Cyan glow effects */
+.glow-cyan {
+  text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff;
 }
 
-.box-glow-red {
-  box-shadow: 0 0 20px rgba(255, 0, 0, 0.5), 0 0 40px rgba(255, 0, 0, 0.3);
+.box-glow-cyan {
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.5), 0 0 40px rgba(0, 255, 255, 0.3);
 }
 
-.border-glow-red {
-  border: 2px solid #ff0000;
-  box-shadow: 0 0 15px rgba(255, 0, 0, 0.6), inset 0 0 15px rgba(255, 0, 0, 0.2);
+.border-glow-cyan {
+  border: 2px solid #00ffff;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.6), inset 0 0 15px rgba(0, 255, 255, 0.2);
 }
 
 /* Scrollbar styling */
@@ -40,10 +40,10 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #ff0000;
+  background: #00ffff;
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #cc0000;
+  background: #00cccc;
 }
