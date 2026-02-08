@@ -1,0 +1,262 @@
+.image-logger-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.tool-card {
+  background: rgba(20, 20, 20, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 40px;
+  transition: all 0.3s ease;
+}
+
+.tool-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 30px rgba(255, 0, 0, 0.7), 0 0 60px rgba(255, 0, 0, 0.4);
+}
+
+.card-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.card-title {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  font-weight: 800;
+}
+
+.card-description {
+  color: #999;
+  font-size: 1.1rem;
+}
+
+.logger-form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-group label {
+  color: #ff0000;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.input-field {
+  padding: 15px 20px;
+  background: rgba(30, 30, 30, 0.8);
+  border: 2px solid #333;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: #ff0000;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+}
+
+.file-upload-wrapper {
+  position: relative;
+}
+
+.file-input {
+  display: none;
+}
+
+.file-label {
+  display: block;
+  padding: 20px;
+  background: rgba(30, 30, 30, 0.8);
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.file-label:hover {
+  background: rgba(40, 40, 40, 0.9);
+  transform: scale(1.02);
+}
+
+.image-preview {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.image-preview img {
+  max-width: 300px;
+  max-height: 300px;
+  border-radius: 10px;
+  border: 2px solid #ff0000;
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+}
+
+.submit-btn {
+  padding: 18px 40px;
+  background: linear-gradient(135deg, #ff0000, #cc0000);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.submit-btn:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 0 30px rgba(255, 0, 0, 0.8), 0 0 60px rgba(255, 0, 0, 0.5);
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.alert {
+  padding: 15px 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+}
+
+.alert-error {
+  background: rgba(255, 0, 0, 0.1);
+  border: 2px solid #ff0000;
+  color: #ff6666;
+}
+
+.alert-success {
+  background: rgba(0, 255, 0, 0.1);
+  border: 2px solid #00ff00;
+  color: #66ff66;
+}
+
+.results-section {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.result-item label {
+  display: block;
+  color: #ff0000;
+  font-weight: 600;
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.link-box {
+  display: flex;
+  gap: 10px;
+}
+
+.link-box input {
+  flex: 1;
+  padding: 12px 15px;
+  background: rgba(30, 30, 30, 0.8);
+  border: 2px solid #333;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 0.9rem;
+  font-family: 'Courier New', monospace;
+}
+
+.copy-btn {
+  padding: 12px 20px;
+  background: #ff0000;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.copy-btn:hover {
+  background: #cc0000;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+}
+
+.info-section {
+  margin-top: 20px;
+}
+
+.info-card {
+  background: rgba(20, 20, 20, 0.6);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 30px;
+}
+
+.info-card h3 {
+  color: #ff0000;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+.info-card ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.info-card li {
+  padding-left: 25px;
+  position: relative;
+  color: #ccc;
+  line-height: 1.6;
+}
+
+.info-card li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: #ff0000;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .tool-card {
+    padding: 25px;
+  }
+
+  .card-title {
+    font-size: 1.8rem;
+  }
+
+  .link-box {
+    flex-direction: column;
+  }
+
+  .copy-btn {
+    width: 100%;
+  }
+}
