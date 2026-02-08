@@ -1,100 +1,86 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { Routes, Route, Link, useNavigate } from 'react-router-dom'
 import ImageLogger from './components/ImageLogger'
 import './App.css'
 
-function App() {
-  const [activeTool, setActiveTool] = useState(null)
+function Home() {
+  const navigate = useNavigate()
 
-  if (activeTool === 'image-logger') {
-    return (
-      <div className="app">
-        <div className="stars"></div>
-        <div className="stars2"></div>
-        <div className="stars3"></div>
-        
-        <header className="header-small">
-          <button className="back-btn" onClick={() => setActiveTool(null)}>
+  return (
+    <div className="app">
+      <div className="bg-glow"></div>
+      
+      <div className="container">
+        <header>
+          <div className="logo">ZESTY TOOLS</div>
+        </header>
+
+        <section className="hero">
+          <h1>Chaos Delivered.</h1>
+          <p>Free Discord tools — built for speed, style, and maximum destruction.</p>
+        </section>
+
+        <div className="tools-grid">
+          <div className="tool-card border-glow-cyan" onClick={() => navigate('/image-logger')}>
+            <div className="tool-icon">
+              <img src="https://cdn-icons-png.flaticon.com/512/1829/1829589.png" alt="Image Logger" />
+            </div>
+            <h2>Image Logger</h2>
+            <div className="status">FREE • LIVE</div>
+            <p className="description">
+              Logs visitors' IP addresses when they open the image link. 
+              Useful for monitoring views or tracking engagement.
+            </p>
+            <button className="launch-btn">Launch Image Logger →</button>
+          </div>
+
+          <div className="tool-card border-glow-cyan locked">
+            <div className="tool-icon">
+              <img src="https://cdn-icons-png.flaticon.com/512/3585/3585491.png" alt="Mystery Tool" />
+            </div>
+            <h2>???</h2>
+            <div className="status-soon">COMING SOON</div>
+            <p className="description">
+              Something far worse is being forged in the shadows... Patience.
+            </p>
+            <button className="launch-btn" disabled>Locked</button>
+          </div>
+        </div>
+
+        <footer>
+          © 2026 Zesty Tools • Not affiliated with Discord • Use responsibly (or don't)
+        </footer>
+      </div>
+    </div>
+  )
+}
+
+function ImageLoggerPage() {
+  return (
+    <div className="app">
+      <div className="bg-glow"></div>
+      
+      <div className="container">
+        <header>
+          <Link to="/" className="back-btn">
             ← Back to Tools
-          </button>
+          </Link>
         </header>
 
         <main className="main">
           <ImageLogger />
         </main>
       </div>
-    )
-  }
-
-  return (
-    <div className="app">
-      <div className="stars"></div>
-      <div className="stars2"></div>
-      <div className="stars3"></div>
-      
-      <header className="header">
-        <h1 className="title glow-cyan">ZESTY TOOLS</h1>
-        <p className="subtitle">Premium Discord Utilities</p>
-      </header>
-
-      <main className="main">
-        <div className="tools-grid">
-          <div className="tool-card border-glow-cyan">
-            <div className="tool-icon">📸</div>
-            <h2 className="tool-title">Image Logger</h2>
-            <div className="tool-badge">FREE • LIVE</div>
-            <p className="tool-description">
-              Logs visitors' IP addresses when they open the image link. 
-              Useful for monitoring views or tracking engagement.
-            </p>
-            <button className="tool-launch-btn" onClick={() => setActiveTool('image-logger')}>
-              Launch Image Logger →
-            </button>
-          </div>
-
-          <div className="tool-card border-glow-cyan opacity-50">
-            <div className="tool-icon">💬</div>
-            <h2 className="tool-title">Webhook Spammer</h2>
-            <div className="tool-badge-soon">COMING SOON</div>
-            <p className="tool-description">
-              Mass spam • Auto-delete • Multi-webhook • Random troll names & avatars • 
-              Pure server destruction.
-            </p>
-            <button className="tool-launch-btn locked" disabled>
-              Locked
-            </button>
-          </div>
-
-          <div className="tool-card border-glow-cyan opacity-50">
-            <div className="tool-icon">✨</div>
-            <h2 className="tool-title">Vouch Bot</h2>
-            <div className="tool-badge-soon">COMING SOON</div>
-            <p className="tool-description">
-              Auto-vouch collection • Reaction system • Channel logs • 
-              Marketplace/trading ready • Keep reputation loud and clean.
-            </p>
-            <button className="tool-launch-btn locked" disabled>
-              Locked
-            </button>
-          </div>
-
-          <div className="tool-card border-glow-cyan opacity-50">
-            <div className="tool-icon">💀</div>
-            <h2 className="tool-title">???</h2>
-            <div className="tool-badge-soon">COMING SOON</div>
-            <p className="tool-description">
-              Something far worse is being forged in the shadows... Patience.
-            </p>
-            <button className="tool-launch-btn locked" disabled>
-              Locked
-            </button>
-          </div>
-        </div>
-      </main>
-
-      <footer className="footer">
-        <p>Made with <span className="glow-cyan">❤</span> for Discord</p>
-      </footer>
     </div>
+  )
+}
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/image-logger" element={<ImageLoggerPage />} />
+    </Routes>
   )
 }
 
