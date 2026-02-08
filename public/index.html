@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zesty Tools</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #0a0e17;
+            --bg-card: #111827;
+            --accent: #00ffff;
+            --accent-dark: #00cccc;
+            --accent-glow: #00ffff;
+            --text: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: rgba(0, 255, 255, 0.28);
+            --success: #10b981;
+        }
+
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .bg-glow {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at 40% 30%, rgba(0,255,255,0.14) 0%, transparent 65%);
+            animation: slowPulse 18s infinite ease-in-out;
+            pointer-events: none;
+            z-index: -2;
+        }
+        @keyframes slowPulse { 0%,100% { opacity:0.45; } 50% { opacity:0.2; } }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 10;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 32px 0 60px;
+        }
+
+        .logo {
+            font-size: 2.6rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #66ffff, #00ffff, #00cccc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+        }
+
+        .hero {
+            text-align: center;
+            padding-bottom: 80px;
+        }
+
+        .hero h1 {
+            font-size: 4.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #66ffff, #00ffff, #00cccc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+            line-height: 1;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            color: var(--text-muted);
+            max-width: 680px;
+            margin: 0 auto 48px;
+            line-height: 1.5;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 32px;
+            margin-bottom: 80px;
+        }
+
+        .tool-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px 32px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-12px);
+            border-color: var(--accent-glow);
+            box-shadow: 0 25px 60px rgba(0,255,255,0.35);
+        }
+
+        .tool-card.locked {
+            opacity: 0.6;
+            filter: grayscale(0.5);
+            pointer-events: none;
+            cursor: not-allowed;
+        }
+
+        .tool-icon img {
+            width: 64px;
+            height: 64px;
+            filter: brightness(0) saturate(100%) invert(70%) sepia(90%) saturate(2000%) hue-rotate(140deg);
+            margin-bottom: 24px;
+        }
+
+        .tool-card h2 {
+            font-size: 2.1rem;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+
+        .status {
+            display: inline-block;
+            background: rgba(16,185,129,0.18);
+            color: var(--success);
+            padding: 6px 16px;
+            border-radius: 999px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            border: 1px solid rgba(16,185,129,0.35);
+        }
+
+        .status-soon {
+            display: inline-block;
+            background: rgba(234,179,8,0.2);
+            color: #fbbf24;
+            padding: 6px 16px;
+            border-radius: 999px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            border: 1px solid rgba(234,179,8,0.4);
+        }
+
+        .description {
+            color: var(--text-muted);
+            line-height: 1.7;
+            font-size: 1.05rem;
+            margin-bottom: 32px;
+        }
+
+        .launch-btn {
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            color: #000;
+            padding: 16px 36px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0,255,255,0.35);
+            width: 100%;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+
+        .launch-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(0,255,255,0.5);
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px 0 40px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 900px) {
+            .hero h1 { font-size: 3.2rem; }
+            .hero p { font-size: 1.2rem; }
+            .tools-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-glow"></div>
+
+    <div class="container">
+        <header>
+            <div class="logo">ZESTY TOOLS</div>
+        </header>
+
+        <section class="hero">
+            <h1>Chaos Delivered.</h1>
+            <p>Free Discord tools — built for speed, style, and maximum destruction.</p>
+        </section>
+
+        <div class="tools-grid">
+            <a href="/image-logger.html" class="tool-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/1829/1829589.png" alt="Image Logger" class="tool-icon">
+                <h2>Image Logger</h2>
+                <div class="status">FREE • LIVE</div>
+                <p class="description">
+                    Logs visitors' IP addresses when they open the image link. 
+                    Useful for monitoring views or tracking engagement.
+                </p>
+                <span class="launch-btn">Launch Image Logger →</span>
+            </a>
+
+            <div class="tool-card locked">
+                <img src="https://cdn-icons-png.flaticon.com/512/3585/3585491.png" alt="Mystery Tool" class="tool-icon">
+                <h2>???</h2>
+                <div class="status-soon">COMING SOON</div>
+                <p class="description">
+                    Something far worse is being forged in the shadows... Patience.
+                </p>
+                <span class="launch-btn">Locked</span>
+            </div>
+        </div>
+
+        <footer>
+            Made by Crxxr • Not affiliated with Discord • Use at your own risk
+        </footer>
+    </div>
+</body>
+</html>

