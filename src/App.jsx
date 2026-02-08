@@ -48,7 +48,7 @@ function Home() {
         </div>
 
         <footer>
-          © 2026 Zesty Tools • Not affiliated with Discord • Use responsibly (or don't)
+          Made by Crxxr • Not affiliated with Discord. Use at your own risk
         </footer>
       </div>
     </div>

@@ -74,10 +74,14 @@ const ImageLogger = () => {
 
   return (
     <div className="image-logger-container">
-      <div className="tool-card border-glow-red">
+      <div className="tool-card-main">
         <div className="card-header">
-          <h2 className="card-title glow-cyan">🔗 Image Logger Generator</h2>
-          <p className="card-description">Create stealth image logger links</p>
+          <div className="tool-icon-large">
+            <img src="https://cdn-icons-png.flaticon.com/512/1829/1829589.png" alt="Image Logger" />
+          </div>
+          <h2 className="card-title-main">Image Logger</h2>
+          <div className="status-main">FREE • LIVE</div>
+          <p className="card-description">Create stealth image logger links to track IP addresses and monitor engagement.</p>
         </div>
 
         <form onSubmit={handleSubmit} className="logger-form">
@@ -105,8 +109,8 @@ const ImageLogger = () => {
                 className="file-input"
                 required
               />
-              <label htmlFor="image" className="file-label border-glow-red">
-                {imageFile ? imageFile.name : '📤 Choose Image (PNG, JPG, JPEG, GIF)'}
+              <label htmlFor="image" className="file-label">
+                {imageFile ? `✓ ${imageFile.name}` : '📤 Choose Image (PNG, JPG, JPEG, GIF)'}
               </label>
             </div>
             {imagePreview && (
@@ -116,8 +120,8 @@ const ImageLogger = () => {
             )}
           </div>
 
-          <button type="submit" className="submit-btn box-glow-red" disabled={loading}>
-            {loading ? '⏳ Generating...' : '⚡ Generate Logger Links'}
+          <button type="submit" className="submit-btn-main" disabled={loading}>
+            {loading ? '⏳ Generating...' : 'Generate Logger Links →'}
           </button>
         </form>
 
@@ -154,18 +158,6 @@ const ImageLogger = () => {
             </div>
           </div>
         )}
-      </div>
-
-      <div className="info-section">
-        <div className="info-card border-glow-red">
-          <h3>ℹ️ How It Works</h3>
-          <ul>
-            <li>Upload your image and provide a Discord webhook</li>
-            <li>Share the generated image link with your target</li>
-            <li>When they open it, you'll get their IP and info in Discord</li>
-            <li>Monitor all clicks via the monitor link</li>
-          </ul>
-        </div>
       </div>
     </div>
   )
