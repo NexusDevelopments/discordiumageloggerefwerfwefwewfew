@@ -48,7 +48,7 @@ function Home() {
         </div>
 
         <footer>
-          Made by Crxxr • Not affiliated with Discord. Use at your own risk
+          Made by Crxxr • Not affiliated with Discord • Use at your own risk
         </footer>
       </div>
     </div>

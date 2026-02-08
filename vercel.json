@@ -1,6 +1,5 @@
 {
-  "framework": "vite",
-  "buildCommand": "npm install && npm run build",
+  "buildCommand": "vite build",
   "outputDirectory": "dist",
   "installCommand": "npm install",
   "rewrites": [
@@ -17,8 +16,12 @@
       "destination": "/api/index.py"
     },
     {
-      "source": "/api/:path*",
+      "source": "/api/(.*)",
       "destination": "/api/index.py"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
